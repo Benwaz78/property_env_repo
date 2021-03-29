@@ -71,6 +71,24 @@ class Property(models.Model):
 
     def __str__(self):
         return self.property_name
+    
+    def img_url1(self):
+        if self.property_img1.url:
+            return self.property_img1.url
+        else:
+            return '/static/public/images/img_1.jpg'
+    
+    def img_url2(self):
+        if self.property_img2.url:
+            return self.property_img2.url
+        else:
+            return '/static/public/images/img_1.jpg'
+
+    def img_url3(self):
+        if self.property_img3.url:
+            return self.property_img3.url
+        else:
+            return '/static/public/images/img_1.jpg'
 
     class Meta():
         verbose_name_plural = 'Property'

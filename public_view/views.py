@@ -5,7 +5,10 @@ from public_view.models import *
 # Create your views here.
 
 def home(request):
-     return render(request, 'public/index.html')
+     rent = Property.objects.filter(offer_type='Rent')
+     sale = Property.objects.filter(offer_type='Sale')[:3]
+     
+     return render(request, 'public/index.html', {'rent_key':rent, 'sale_key':sale})
 
 
 
@@ -16,7 +19,12 @@ def about(request):
 
 def detail_about(request, team_id):
      detail = Team.objects.get(id=team_id)
-     return render(request, 'public/about-detail.html', {'det':detail})
+     return render(request, 'public/about-detail.html', {'det': detail})
+
+
+
+
+
 
 
 

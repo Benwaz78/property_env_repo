@@ -86,11 +86,13 @@
                                 <li class="has-children">
                                     <a href="#">Property Type</a>
                                     <ul class="dropdown arrow-top">
-                                        <li><a href="#">Condo</a></li>
-                                        <li><a href="#">Duplex</a></li>
-                                        <li><a href="#">Bungalow</a></li>
-                                        <li><a href="#">Mini Flat</a></li>
-                                        <li><a href="#">Flat</a></li>
+                                        {% if pro %}
+                                            {% for p in pro %}
+                                                <li><a href="{{ p.id }}">{{ p.name }}</a></li>
+                                            {% endfor %}
+                                        {% endif %}
+                                        
+                                        
                                     </ul>
                                 </li>
                                 <li {% if request.path == Agent %} class="active" {% endif %}>
