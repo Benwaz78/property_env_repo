@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Agents(models.Model):
+class MoreProfile(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Agent')
     phone = models.CharField(max_length=17)
     website = models.URLField(blank=True, null=True)
@@ -11,7 +11,7 @@ class Agents(models.Model):
     address = models.TextField()
 
     class Meta():
-        verbose_name_plural='Agent'
+        verbose_name_plural='User Profile'
 
 class Location(models.Model):
     name =models.CharField(max_length=150, unique=True)
@@ -26,6 +26,20 @@ class PropertyType(models.Model):
 
     def __str__(self):
         return self.name
+
+class Team(models.Model):
+    team_name = models.CharField(max_length=150)
+    profile = models.FileField(blank=True, null=True, upload_to='uploads/')
+    title = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.team_name
+
+    class Meta():
+        verbose_name_plural = 'Team'
 
 class Property(models.Model):
     RENT = 'Rent'
@@ -42,6 +56,7 @@ class Property(models.Model):
     property_img2 = models.FileField(blank=True, null=True, verbose_name='Property Image 2', upload_to='uploads/properties')
     property_img3 = models.FileField(
         blank=True, null=True, verbose_name='Property Image 3', upload_to='uploads/properties')
+    prize = models.DecimalField(max_digits=9, decimal_places=2)
     property_address = models.TextField(blank=True, null=True)
     property_description = models.TextField(blank=True, null=True)
     rooms = models.PositiveIntegerField()

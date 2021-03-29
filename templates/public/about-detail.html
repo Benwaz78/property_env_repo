@@ -32,32 +32,30 @@ About
             </div>
         </div>
         <div class="row">
-
-            {% if team_key %}
-                {% for t in team_key %}
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-5" data-aos="fade-up" data-aos-delay="200">
-                        <div class="team-member">
-                    
-                            <img src="{{ t.profile.url }}" alt="Image" class="img-fluid rounded mb-4">
-                    
-                            <div class="text">
-                    
-                                <h2 class="mb-2 font-weight-light text-black h4"><a href="{% url 'public_view:detail_about' t.id %}">{{ t.team_name }}</a></h2>
-                                <span class="d-block mb-3 text-white-opacity-05">{{ t.title }}</span>
-                                <p>
-                                    {{ t.description|truncatewords:30 }}
-                                </p>
-                                <p>
-                                    <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
-                                    <a href="#" class="text-black p-2"><span class="icon-twitter"></span></a>
-                                    <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
-                                </p>
-                            </div>
-                    
+            {% if det %}
+                <div class="col-md-12 col-lg-12 mb-5 mb-lg-5" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-member">
+                
+                        <img src="{{ det.profile.url }}" alt="Image" class="img-fluid rounded mb-4">
+                
+                        <div class="text">
+                
+                            <h2 class="mb-2 font-weight-light text-black h4">{{ det.team_name}}</h2>
+                            <span class="d-block mb-3 text-white-opacity-05">{{ det.title }}</span>
+                            <p>
+                                {{ det.description }}
+                            </p>
+                            <p>
+                                <a href="#" class="text-black p-2"><span class="icon-facebook"></span></a>
+                                <a href="#" class="text-black p-2"><span class="icon-twitter"></span></a>
+                                <a href="#" class="text-black p-2"><span class="icon-linkedin"></span></a>
+                            </p>
                         </div>
+                
                     </div>
-                {% endfor %}
+                </div>
             {% endif %}
+           
 
 
             

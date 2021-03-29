@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse 
+from public_view.models import *
 
 # Create your views here.
 
@@ -9,7 +10,13 @@ def home(request):
 
 
 def about(request):
-     return render(request, 'public/about.html')
+     team = Team.objects.order_by('-created')
+     return render(request, 'public/about.html', {'team_key':team})
+
+
+def detail_about(request, team_id):
+     detail = Team.objects.get(id=team_id)
+     return render(request, 'public/about-detail.html', {'det':detail})
 
 
 
