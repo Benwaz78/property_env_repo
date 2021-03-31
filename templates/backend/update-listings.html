@@ -1,0 +1,86 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+                <div class="box_general padding_bottom ">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-pencil"></i>Edit list</h2>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-8 add_top_30">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Property Name</label>
+                                        <input type="text" class="form-control" placeholder="Your name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>property price</label>
+                                        <input type="text" class="form-control" placeholder="Your last name">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row-->
+                            <div class="row">
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>property image 1</label>
+                                        <input type="file" class="form-control" placeholder="Your image1 upload">
+                                    </div>
+                                </div>
+								 <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>property image2</label>
+                                        <input type="file" class="form-control" placeholder="Your image2 upload">
+                                    </div>
+                                </div>
+                            </div> 
+							<div class="row">
+                               
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>property image 3</label>
+                                        <input type="file" class="form-control" placeholder="Your immage3 upload">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>location</label>
+                                        <textarea style="height:100px;" class="form-control" placeholder="property location"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+							
+							   <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>year Built</label>
+                                        <input type="date" class="form-control" placeholder="Year built">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>property type</label>
+                                        <input type="text" class="form-control" placeholder="Your property type">
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <!-- /row-->
+                        </div>
+                    </div>
+					<br>
+					<br>
+					<br>
+					<a href="#0" class="btn_1 medium pull">Update</a>
+                </div>
+                
+{% endblock  %}

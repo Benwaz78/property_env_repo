@@ -1,0 +1,67 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+    <div class="container-fluid">
+		<div>
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">My Dashboard</li>
+            </ol>
+			</div>
+			<br>
+			<br>
+			<br>
+            <!-- Icon Cards-->
+                
+            <!-- /cards -->
+            <h2></h2>
+             
+                <div class="box_general padding_bottom ">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-pencil"></i>Add new location</h2>
+                    </div>
+                         <form action="" method="post">
+
+                        <div class="col-md-8 add_top_30">
+                           
+                            <!-- /row-->
+                      
+                               <div class="row">
+                               
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Location Name</label>
+                                        <input type="text" class="form-control" placeholder="Your property type">
+                                    </div>
+                                </div>
+                            </div> 
+                            <!-- /row-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea style="height:100px;" class="form-control" placeholder="property location"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+							
+				      <a href="#0" class="btn_1 medium pull">Save</a>
+
+
+                            <!-- /row-->
+                        </div>
+                    </form>
+					<br>
+					<br>
+					<br>
+					
+                </div>
+        </div>
+{% endblock %} 

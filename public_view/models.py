@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 # Create your models here.
 
 class MoreProfile(models.Model):
@@ -92,6 +93,12 @@ class Property(models.Model):
 
     class Meta():
         verbose_name_plural = 'Property'
+
+    def get_property_url(self):
+        return reverse("public_view:property_details", kwargs={
+            'slug': self.slug,
+            'category_id':self.property_type_id.id
+        })
 
     def approve_property(self):
         self.approve = True
