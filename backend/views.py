@@ -44,6 +44,11 @@ def view_profile(request):
      return render(request, 'backend/view-profile.html')
 
 
+def user_logout(request):
+    logout(request)
+    return redirect('public_view:login_view')
+
+
 
 def add_property(request):
      return render(request, 'backend/add-property.html')

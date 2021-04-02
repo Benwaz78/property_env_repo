@@ -39,21 +39,11 @@ def property_details(request, slug, category_id):
      related_prop = Property.objects.filter(property_type_id__id=category_id)
      return render(request, 'public/property-details.html', {'prop':prop_det, 'rel':related_prop})
 
-
-
-
-
 def buy(request):
      return render(request, 'public/buy.html')
 
-
-
-
 def register(request):
      return render(request, 'public/register.html')
-
-
-
 
 def login_view(request):
      if request.method == 'POST':
@@ -62,17 +52,33 @@ def login_view(request):
          user = authenticate(request, username=username, password=password)
 
          if user is not None:
-             login(request, user)
-             return redirect('backend:index')
+              if request.user.is_staff:
+                   login(request, user)
+                   return redirect('backend:index')
+              else:
+                   login(request, user)
+                   return redirect('public_view:dashboard')
          else:
-             messages.error(request, 'Username and Password do not match')
+               messages.error(request, 'Username and Password do not match')
      return render(request, 'public/login.html')
+         
+
+
+def dashboard(request):
+     return render(request, 'public/dashboard.html')
 
 
 
+def add_property(request):
+    return render(request, 'public/add-property.html')
 
-# def add(request):
-#      return HttpResponse( 6+3 )
+
+def add_location(request):
+    return render(request, 'public/add-location.html')
+
+
+def confirm_logout(request):
+    return render(request, 'public/confirm-logout.html')
 
 
 

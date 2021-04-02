@@ -1,0 +1,55 @@
+{% extends 'public/base.html' %}
+{% load static %}
+{% block title %}
+Add Location
+{% endblock %}
+
+
+{% block content %}
+<div class="site-blocks-cover inner-page-cover overlay"
+  style="background-image: url({% static 'public/images/hero_bg_2.jpg' %});" data-aos="fade"
+  data-stellar-background-ratio="0.5">
+  <div class="container">
+    <div class="row align-items-center justify-content-center text-center">
+      <div class="col-md-10">
+        <h1 class="mb-2">Add Location</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+
+    {% include 'public/user-sidebar.html' %}
+
+    <div class="col-md-9 col-lg-9 py-5 bg-light">
+      <form action="#" class="p-5 bg-white border">
+
+        <div class="row form-group">
+          <div class="col-md-12 mb-3 mb-md-0">
+            <label class="font-weight-bold" for="fullname">Location Name</label>
+            <input type="text" id="fullname" class="form-control" placeholder="Full Name">
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-md-12 mb-3 mb-md-0">
+            <label class="font-weight-bold" for="fullname">Location Description</label>
+            <textarea class="form-control"></textarea>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add Location">
+
+
+
+
+
+
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
