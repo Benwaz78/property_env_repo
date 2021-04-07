@@ -1,10 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse 
+
+from django.contrib.auth import  logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+
 
 
 
 # Create your views here.
-
+@login_required(login_url='/pages/login-page/')
 def index(request):
      return render(request, 'backend/index.html')
 
@@ -44,7 +50,7 @@ def view_profile(request):
      return render(request, 'backend/view-profile.html')
 
 
-def user_logout(request):
+def admin_logout(request):
     logout(request)
     return redirect('public_view:login_view')
 

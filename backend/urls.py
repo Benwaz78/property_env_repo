@@ -4,6 +4,7 @@ app_name ='backend'
 urlpatterns = [
     path('hello', views.greet, name='greet' ),
     path('admin-page', views.index, name='index' ),
+    path('admin-logout/', views.admin_logout, name='admin_logout' ),
     # path('message-page', views.message, name='message'),
 
     path('addlist-page', views.addlistings, name='addlistings'),

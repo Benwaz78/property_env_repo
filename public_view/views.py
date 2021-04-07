@@ -7,6 +7,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
+# EMAIL IMPORT STARTS HERE
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.conf import settings
+# EMAIL IMPORT ENDS HERE
+
+
 # Create your views here.
 
 def home(request):
@@ -31,13 +39,62 @@ def agent(request):
 def rent(request):
      return render(request, 'public/rent.html')
 
-def request(request):
-     return render(request, 'public/request.html')
+def requests(request):
+    if request.method == 'POST':
+        fullname = request.POST.get('fullname')
+        email = request.POST.get('email')
+        location = request.POST.get('location')
 
-def property_details(request, slug, category_id):
-     prop_det = Property.objects.get(slug=slug)
-     related_prop = Property.objects.filter(property_type_id__id=category_id)
-     return render(request, 'public/property-details.html', {'prop':prop_det, 'rel':related_prop})
+        print('Fullname: ', fullname, 'Email: ', email, 'Location: ', location)
+
+        subject = 'Request Form'
+        args = {
+            'fullname':fullname,
+            'email':email,
+            'location':location
+        }
+        html_message = render_to_string('public/mail-template.html', args)
+        plain_message = strip_tags(html_message)
+        from_email = settings.EMAIL_FROM
+        send = mail.send_mail(subject, plain_message, from_email, ['uwazie.benedict@alabiansolutions.com', ], html_message=html_message)
+        if send:
+            messages.success(request, 'Email sent')
+        else:
+            messages.error(request, 'Email not sent')
+
+    return render(request, 'public/request.html')
+
+def property_details(request, slug, category_id, prop_id):
+    prop_det = Property.objects.get(slug=slug)
+    related_prop = Property.objects.filter(property_type_id__id=category_id)
+    get_prop = Property.objects.get(id=prop_id)
+
+    
+
+    name = request.POST.get('name')
+    phone = request.POST.get('phone')
+
+    subject = 'Agent Mail'
+    agent_email = get_prop.agent_id.email
+    location_id = get_prop.location_id.id
+    agent_id = get_prop.agent_id.id
+
+    args = {
+        'name':name,
+        'phone':phone
+    }
+
+    html_message = render_to_string('public/agent-mail-template.html', args)
+    plain_message = strip_tags(html_message)
+    from_email = settings.EMAIL_FROM
+    send = mail.send_mail(subject, plain_message, from_email, [agent_email, ], html_message=html_message)
+    if send:
+        save_data = ContactAgent(name=name, phone=phone, agent_id=agent_id, location_id=location_id)
+        save_data.save()
+        messages.success(request, 'Mail Sent')
+    else:
+        messages.error('Email not sent')
+    return render(request, 'public/property-details.html', {'prop':prop_det, 'rel':related_prop})
 
 def buy(request):
      return render(request, 'public/buy.html')
@@ -52,7 +109,7 @@ def login_view(request):
          user = authenticate(request, username=username, password=password)
 
          if user is not None:
-              if request.user.is_staff:
+              if request.user.is_superuser:
                    login(request, user)
                    return redirect('backend:index')
               else:
@@ -64,9 +121,18 @@ def login_view(request):
          
 
 
+@login_required(login_url='/pages/login-page/')
 def dashboard(request):
      return render(request, 'public/dashboard.html')
 
+
+@login_required(login_url='/pages/login-page/')
+def confirm_logout(request):
+ return render(request, 'public/confirm-logout.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('public_view:login_view')
 
 
 def add_property(request):
@@ -77,8 +143,7 @@ def add_location(request):
     return render(request, 'public/add-location.html')
 
 
-def confirm_logout(request):
-    return render(request, 'public/confirm-logout.html')
+
 
 
 

@@ -97,7 +97,8 @@ class Property(models.Model):
     def get_property_url(self):
         return reverse("public_view:property_details", kwargs={
             'slug': self.slug,
-            'category_id':self.property_type_id.id
+            'category_id':self.property_type_id.id,
+            'prop_id':self.id
         })
 
     def approve_property(self):
