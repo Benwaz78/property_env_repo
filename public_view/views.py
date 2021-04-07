@@ -67,33 +67,32 @@ def requests(request):
 def property_details(request, slug, category_id, prop_id):
     prop_det = Property.objects.get(slug=slug)
     related_prop = Property.objects.filter(property_type_id__id=category_id)
-    get_prop = Property.objects.get(id=prop_id)
 
-    
+    if request.method == 'POST':
+        get_prop = Property.objects.get(id=prop_id)
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
 
-    name = request.POST.get('name')
-    phone = request.POST.get('phone')
+        subject = 'Agent Mail'
+        agent_email = get_prop.agent_id.email
+        location_id = get_prop.location_id
+        agent_id = get_prop.agent_id
 
-    subject = 'Agent Mail'
-    agent_email = get_prop.agent_id.email
-    location_id = get_prop.location_id.id
-    agent_id = get_prop.agent_id.id
+        args = {
+            'name':name,
+            'phone':phone
+        }
 
-    args = {
-        'name':name,
-        'phone':phone
-    }
-
-    html_message = render_to_string('public/agent-mail-template.html', args)
-    plain_message = strip_tags(html_message)
-    from_email = settings.EMAIL_FROM
-    send = mail.send_mail(subject, plain_message, from_email, [agent_email, ], html_message=html_message)
-    if send:
-        save_data = ContactAgent(name=name, phone=phone, agent_id=agent_id, location_id=location_id)
-        save_data.save()
-        messages.success(request, 'Mail Sent')
-    else:
-        messages.error('Email not sent')
+        html_message = render_to_string('public/agent-mail-template.html', args)
+        plain_message = strip_tags(html_message)
+        from_email = settings.EMAIL_FROM
+        send = mail.send_mail(subject, plain_message, from_email, [agent_email, ], html_message=html_message)
+        if send:
+            save_data = ContactAgent(name=name, phone=phone, agent_id=agent_id, location_id=location_id)
+            save_data.save()
+            messages.success(request, 'Mail Sent')
+        else:
+            messages.error('Email not sent')
     return render(request, 'public/property-details.html', {'prop':prop_det, 'rel':related_prop})
 
 def buy(request):

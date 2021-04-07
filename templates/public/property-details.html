@@ -138,6 +138,12 @@
                 <div class="bg-white widget border rounded">
             
                     <h3 class="h4 text-black widget-title mb-3">Contact Agent</h3>
+                    {% if messages %}
+                        {% for m in messages %}
+                            <div class="alert alert-success">{{ m }}</div>
+                        {% endfor %}
+
+                    {% endif %}
                     <form method="post" class="form-contact-agent">
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -149,7 +155,7 @@
                             <input type="text" id="phone" name="phone" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" id="phone" class="btn btn-primary" value="Send Message">
+                            <input type="submit"  class="btn btn-primary" value="Send Message">
                         </div>
                         {% csrf_token %}
                     </form>
