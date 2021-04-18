@@ -1,0 +1,44 @@
+{% extends 'backend/admin_base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+    <div class="container-fluid">
+		<div>
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">My Dashboard</li>
+            </ol>
+			</div>
+			<br>
+			<br>
+			<br>
+            <!-- Icon Cards-->
+                
+            <!-- /cards -->
+            <h2></h2>
+             
+                <div class="box_general padding_bottom ">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-pencil"></i>Add New Property</h2>
+                    </div>
+                       
+                         <form method="post">
+                            
+                           {% include 'backend/form-reuse.html' with form=type %}
+                            {% csrf_token %}
+                            <input type="submit" value="Submit" class="btn btn-success">
+
+                         </form>
+					<br>
+					<br>
+					<br>
+					
+                </div>
+        </div>
+{% endblock %} 

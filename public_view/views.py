@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse 
 from public_view.models import *
+from public_view.forms import *
+from backend.forms import *
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -21,7 +23,8 @@ def home(request):
      # rent = Property.objects.filter(offer_type='Rent')[:3]
      latest = Property.objects.order_by('-created')[:3]
      sale = Property.objects.filter(offer_type='Sale')[:3]
-     args = {'sale_key':sale, 'latest':latest}
+     filter_obj = FilterForm()
+     args = {'sale_key':sale, 'latest':latest, 'fil':filter_obj}
      return render(request, 'public/index.html', args)
 
 def about(request):
@@ -29,9 +32,30 @@ def about(request):
      return render(request, 'public/about.html', {'team_key':team})
 
 
+
+
 def detail_about(request, team_id):
      detail = Team.objects.get(id=team_id)
      return render(request, 'public/about-detail.html', {'det': detail})
+
+def filter_form(request):
+    if request.method == 'GET':
+        filter_obj = FilterForm(request.GET)
+        if filter_obj.is_valid():
+            location = filter_obj.cleaned_data.get('location_id')
+            offer_type = filter_obj.cleaned_data.get('offer_type')
+            property_type = filter_obj.cleaned_data.get('property_type_id')
+            filter_query = Property.objects.filter(location_id=location, offer_type=offer_type, 
+                property_type_id=property_type)
+            for f in filter_query:
+                print(f.offer_type)
+                print(f.location_id)
+                print(f.property_type_id)
+            return render(request, 'public/result.html', {'fil':filter_query})
+    return render(request, 'public/result.html')
+
+
+
 
 def agent(request):
      return render(request, 'public/agent.html')
@@ -98,8 +122,7 @@ def property_details(request, slug, category_id, prop_id):
 def buy(request):
      return render(request, 'public/buy.html')
 
-def register(request):
-     return render(request, 'public/register.html')
+
 
 def login_view(request):
      if request.method == 'POST':
@@ -108,10 +131,10 @@ def login_view(request):
          user = authenticate(request, username=username, password=password)
 
          if user is not None:
-              if request.user.is_superuser:
+              if user.is_superuser == True:
                    login(request, user)
                    return redirect('backend:index')
-              else:
+              elif not(user.is_superuser):
                    login(request, user)
                    return redirect('public_view:dashboard')
          else:
@@ -125,9 +148,9 @@ def dashboard(request):
      return render(request, 'public/dashboard.html')
 
 
-@login_required(login_url='/pages/login-page/')
-def confirm_logout(request):
- return render(request, 'public/confirm-logout.html')
+# @login_required(login_url='/pages/login-page/')
+# def confirm_logout(request):
+#  return render(request, 'public/confirm-logout.html')
 
 def logout_view(request):
     logout(request)
@@ -135,7 +158,25 @@ def logout_view(request):
 
 
 def add_property(request):
-    return render(request, 'public/add-property.html')
+    if request.method == 'POST':
+        add_property = PropertyForm(request.POST, request.FILES)
+        if add_property.is_valid():
+            user = add_property.save(commit=False)
+            user.agent_id = request.user
+            user.approve = False
+            user.save()
+            messages.success(request, 'Property added')
+    else:
+        add_property =  PropertyForm()
+    return render(request, 'public/add-property.html', {'add':add_property})
+
+
+
+def view_property_byagent(request):
+    views = Property.objects.filter(agent_id=request.user)
+    return render(request, 'public/view-list.html', {'views':views})  
+
+
 
 
 def add_location(request):

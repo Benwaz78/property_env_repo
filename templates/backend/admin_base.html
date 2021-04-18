@@ -78,12 +78,24 @@
 
 
 
-
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
+                    <a class="nav-link" href="{% url 'backend:add_property_type' %}">
+                        <i class="fa fa-fw fa-envelope-open"></i>
+                        <span class="nav-link-text">Add Property Type</span>
+                    </a>
+                </li>
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
                     <a class="nav-link" href="{% url 'backend:change_password' %}">
                         <i class="fa fa-fw fa-envelope-open"></i>
                         <span class="nav-link-text">Change Password</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
+                    <a class="nav-link" href="{% url 'backend:view_property_type' %}">
+                        <i class="fa fa-fw fa-envelope-open"></i>
+                        <span class="nav-link-text">View Property Type</span>
                     </a>
                 </li>
 
@@ -99,9 +111,7 @@
                         <li>
                             <a href="{% url 'backend:view_list' %}">View list <span class="badge badge-pill badge-success">nothing yet!!</span></a>
                         </li>
-                        <li>
-                            <a href="{% url 'backend:edit_list' %}">Update list <span class="badge badge-pill badge-danger"></span></a>
-                        </li>
+                       
                     </ul>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Properties">

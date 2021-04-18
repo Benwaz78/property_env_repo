@@ -13,6 +13,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    {% block meta %}
+
+    {% endblock %}
+
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
     <link rel="stylesheet" href="{% static 'public/fonts/icomoon/style.css' %}">
@@ -101,7 +105,7 @@
                                     
                                     </li>
                                     <li>
-                                        <a href="{% url 'public_view:confirm_logout' %}">Logout</a>
+                                        <a href="{% url 'public_view:logout_view' %}">Logout</a>
                                         
                                     </li>
                                 </ul>
@@ -149,7 +153,7 @@
                                         <a href="#">Login</a>
                                         <ul class="dropdown arrow-top">
                                             <li><a href="{% url 'public_view:login_view' %}">Login</a></li>
-                                            <li><a href="{% url 'public_view:register' %}">Register</a></li>
+                                            <li><a href="{% url 'backend:register_form' %}">Register</a></li>
                                         </ul>
                                     </li>
                                 </ul>

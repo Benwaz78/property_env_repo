@@ -1,4 +1,4 @@
-{% extends 'admin/admin_base.html' %}
+{% extends 'backend/admin_base.html' %}
 {% load static %}
 
 
@@ -27,37 +27,13 @@
                     <div class="header_box version_2">
                         <h2><i class="fa fa-pencil"></i>Add new location</h2>
                     </div>
-                         <form action="" method="post">
+                        
+                         <form method="post">
 
-                        <div class="col-md-8 add_top_30">
-                           
-                            <!-- /row-->
-                      
-                               <div class="row">
-                               
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Location Name</label>
-                                        <input type="text" class="form-control" placeholder="Your property type">
-                                    </div>
-                                </div>
-                            </div> 
-                            <!-- /row-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <textarea style="height:100px;" class="form-control" placeholder="property location"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-							
-				      <a href="#0" class="btn_1 medium pull">Save</a>
+                            {% include 'backend/form-reuse.html' with form=loc %}
+                            <input type="submit" value="Submit" class="btn btn-success">
 
-
-                            <!-- /row-->
-                        </div>
-                    </form>
+                         </form>
 					<br>
 					<br>
 					<br>

@@ -1,7 +1,14 @@
 {% extends 'public/base.html' %}
+
 {% block title %}
 {{ prop.property_name }}
 {% endblock %}
+
+{% block meta %}
+<meta property="og:image" content="{{ prop.img_url1 }}" />
+<meta property="og:image:secure_url" content="{{ prop.img_url1 }}" />
+{% endblock %}
+
 
 
 {% block content %}
